@@ -1,0 +1,61 @@
+<div class="hotel-list">
+  <div class="hotel-container">
+    <div class="hotel-card" *ngFor="let hotel of hotels; let i = index" [hidden]="!showMore && i >= 4">
+      <div class="hotel-slider">
+        <img [src]="hotel.images[activeIndex[i] || 0]" alt="{{ hotel.name }}" />
+        <button (click)="prevImage(i)">&#10094;</button>
+        <button (click)="nextImage(i)">&#10095;</button>
+      </div>
+      <h3>{{ hotel.name }}</h3>
+      <p><strong>Price:</strong> {{ hotel.price }}</p>
+      <p><strong>Amenities:</strong> {{ hotel.amenities.join(', ') }}</p>
+
+      <div class="button-group">
+        <button (click)="toggleDetails(i)" class="read-more-button">Read More</button>
+        <button (click)="onBookNow(hotel)" class="book-now-button">Book Now</button>
+      </div>
+
+      <div *ngIf="hotel.showDetails">
+        <p>{{ hotel.details }}</p>
+      </div>
+    </div>
+
+    <div class="load-buttons">
+      <button *ngIf="!showMore" (click)="loadMore()">Load More</button>
+      <button *ngIf="showMore" (click)="loadLess()">Load Less</button>
+    </div>
+  </div>
+</div>
+
+<div class="booking-form" *ngIf="showModal">
+  <h2>Booking Information for {{ selectedHotel?.name }}</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Your Name</label>
+      <input type="text" [(ngModel)]="name" name="name" placeholder="Your Name" required />
+    </div>
+    <div class="form-group">
+      <label>Check-In Date</label>
+      <input type="date" [(ngModel)]="checkIn" name="checkIn" required />
+    </div>
+    <div class="form-group">
+      <label>Check-Out Date</label>
+      <input type="date" [(ngModel)]="checkOut" name="checkOut" required />
+    </div>
+    
+    <!-- Payment Method Section -->
+    <div class="payment-method">
+      <label>Payment Method</label>
+      <select [(ngModel)]="paymentMethod" name="paymentMethod" required>
+        <option value="">Select Payment Method</option>
+        <option value="Credit Card">Credit Card</option>
+        <option value="Paytm">Paytm</option>
+      </select>
+    </div>
+
+    <button type="submit" class="payment-button">Book Now</button>
+  </form>
+  <button (click)="closeModal()">Close</button>
+</div>
+
+<div *ngIf="showModal" class="overlay"></div>

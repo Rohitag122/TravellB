@@ -1,0 +1,94 @@
+<nav class="navbar navbar-expand-lg custom-navbar">
+  <div class="container-fluid">
+    <div class="logo">
+      <a routerLink="/" class="navbar-brand d-flex align-items-center">
+        <img
+          src="https://cdn.pixabay.com/photo/2020/07/23/15/33/museum-5431661_640.jpg"
+          alt="Logo"
+          class="i1"
+        />
+        <span class="b1 ms-2">TravelB</span>
+      </a>
+    </div>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuOpen"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" [class.show]="menuOpen">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a routerLink="/flights" class="nav-link active">
+            <i class="bi bi-airplane"></i> Flights
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/hotels" class="nav-link">
+            <i class="bi bi-building"></i> Hotels
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/train" class="nav-link">
+            <i class="bi bi-train-front"></i> Trains
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/bus" class="nav-link">
+            <i class="bi bi-bus-front"></i> Bus
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/about" class="nav-link">
+            <i class="bi bi-info-circle"></i> About Us
+          </a>
+        </li>
+        <li class="nav-item">
+  <a routerLink="/booking-history" class="nav-link">
+    <i class="bi bi-clock-history"></i> Booking History
+  </a>
+</li>
+
+        <li class="nav-item">
+          <a routerLink="/contact" class="nav-link">
+            <i class="bi bi-envelope"></i> Contact Us
+          </a>
+        </li>
+      </ul>
+
+      <div class="search-container d-flex align-items-center">
+        <input
+          type="text"
+          placeholder="Where to?"
+          [(ngModel)]="searchTerm"
+          class="form-control me-2 search-input"
+          (input)="onInputChange()"
+        />
+        <button
+          type="button"
+          (click)="onSearch()"
+          class="btn btn-outline-light search-button"
+        >
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+
+      <div *ngIf="description" class="description mt-2 fade-in">
+        {{ description }}
+      </div>
+
+      <div class="menu-icons ms-3 d-flex align-items-center">
+        <a routerLink="/login" class="nav-link">
+          <i class="bi bi-person"></i>
+        </a>
+        <a routerLink="/notifications" class="nav-link">
+          <i class="bi bi-bell"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

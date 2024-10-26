@@ -1,0 +1,62 @@
+<div class="booking-container">
+  <div class="tabs">
+    <div class="tab" [class.active]="selectedTab === 'upcoming'" (click)="selectTab('upcoming')">
+      <i class="fas fa-suitcase"></i> Upcoming Bookings
+    </div>
+    <div class="tab" [class.active]="selectedTab === 'cancelled'" (click)="selectTab('cancelled')">
+      <i class="fas fa-times-circle"></i> Cancelled Bookings
+    </div>
+    <div class="tab" [class.active]="selectedTab === 'completed'" (click)="selectTab('completed')">
+      <i class="fas fa-check-circle"></i> Completed Bookings
+    </div>
+  </div>
+
+  <div class="booking-content">
+    <ng-container *ngIf="selectedTabData.length; else noBookings">
+      <div *ngFor="let booking of selectedTabData" class="booking-card" (click)="openBookingDetails(booking)">
+        <div class="booking-info">
+          <h3>{{ booking.title }}</h3>
+          <p>{{ booking.details }}</p>
+          <p>Date: {{ booking.date }}</p>
+          <p>Location: {{ booking.location }}</p>
+          <p>Price: ${{ booking.price }}</p>
+          <p *ngIf="booking.discount">Discount: {{ booking.discount }}% Off</p>
+          <p *ngIf="booking.offer">Offer: {{ booking.offer }}</p>
+        </div>
+        <button *ngIf="selectedTab === 'upcoming'" (click)="openCancelModal($event, booking); $event.stopPropagation()">
+          Cancel
+        </button>
+      </div>
+    </ng-container>
+
+    <ng-template #noBookings>
+      <div class="no-bookings">
+        <p>Looks like you have no bookings in this category.</p>
+        <button (click)="navigateToBooking()">Start Booking Now</button>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<!-- Cancel Modal -->
+<div *ngIf="showCancelModal" class="modal-backdrop">
+  <div class="modal">
+    <h3>Cancel Booking</h3>
+    <p>Select the passengers you want to cancel:</p>
+    <div *ngFor="let passenger of selectedBooking?.passengers">
+      <input type="checkbox" [value]="passenger.id" [(ngModel)]="passenger.isSelected" />
+      {{ passenger.name }} (ID: {{ passenger.id }})
+    </div>
+    <p>Select a reason for cancellation:</p>
+    <div *ngFor="let reason of cancellationReasons">
+      <input type="checkbox" [value]="reason" [(ngModel)]="selectedReasons" />
+      {{ reason }}
+    </div>
+    <button (click)="confirmCancellation()">Confirm</button>
+    <button (click)="closeCancelModal()">Close</button>
+
+  </div>
+    <div class="discount-section">
+    <img src="https://img.freepik.com/free-vector/flat-travel-ex…horizontal-sale-banner-template_23-2150000796.jpg" alt="Special Discounts" class="discount-image">
+  </div>
+</div>

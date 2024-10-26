@@ -1,0 +1,7 @@
+<h2>Notifications</h2>
+<div class="notifications-container">
+  <div *ngFor="let notification of notifications" class="notification" [ngClass]="notification.type">
+    <i [ngClass]="getIcon(notification.type)"></i>
+    <span>{{ notification.message }}</span>
+  </div>
+</div>

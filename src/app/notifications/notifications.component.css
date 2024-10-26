@@ -1,0 +1,54 @@
+.notifications-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .notification {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    color: #fff; /* Default text color */
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s ease;
+  }
+  
+  .notification.info {
+    background-color: #007bff; /* Blue */
+  }
+  
+  .notification.success {
+    background-color: #28a745; /* Green */
+  }
+  
+  .notification.warning {
+    background-color: #ffc107; /* Yellow */
+    color: #212529; /* Darker text for contrast */
+  }
+  
+  .notification.error {
+    background-color: #dc3545; /* Red */
+  }
+  
+  .notification i {
+    margin-right: 10px; /* Space between icon and text */
+    font-size: 1.5em; /* Icon size */
+  }
+  
+  /* Icon styles (replace with your actual icon classes) */
+  .icon-info::before {
+    content: "ℹ️"; /* Example icon */
+  }
+  .icon-success::before {
+    content: "✅"; /* Example icon */
+  }
+  .icon-warning::before {
+    content: "⚠️"; /* Example icon */
+  }
+  .icon-error::before {
+    content: "❌"; /* Example icon */
+  }
+  

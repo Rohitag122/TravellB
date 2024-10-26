@@ -1,0 +1,80 @@
+.custom-navbar {
+  background: linear-gradient(135deg, #4A90E2, #FF6F61, #F7C94C); /* Gradient colors */
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.navbar-brand {
+  color: white; /* Brand color */
+  font-weight: bold; /* Bold brand text */
+  font-size: 1.5rem; /* Increase font size */
+}
+
+.nav-link {
+  color: white; /* White text color */
+  transition: color 0.3s; /* Transition for color change */
+}
+
+.nav-link:hover {
+  color: #FFDD57; /* Light yellow on hover */
+}
+
+.search-container {
+  position: relative;
+}
+
+.description {
+  background-color: rgba(255, 255, 255, 0.9); /* White background with slight transparency */
+  border: 1px solid #4A90E2; /* Border color matching the navbar */
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 5px;
+  animation: fadeIn 0.5s; /* Animation effect */
+}
+
+.fade-in {
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px); /* Slide from top */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+  .search-container {
+    width: 100%; /* Full width on mobile */
+    margin-top: 10px; /* Margin on top for spacing */
+  }
+
+  .navbar-nav {
+    flex-direction: column; /* Stack menu items vertically */
+    width: 100%; /* Full width for menu */
+  }
+
+  .description {
+    position: absolute; /* Position it under the search bar */
+    z-index: 1000;
+    width: 100%; /* Full width */
+  }
+}
+.i1{
+  height:40px;
+  width: 65px;
+  border:1px transparent;
+  border-radius: 5% 50%;
+  box-shadow: 4px 6px 3px rgb(188, 245, 245);
+
+}
+.b1{
+  background: linear-gradient(135deg, rgba(255, 0, 0, 1), rgba(0, 0, 255, 1));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}

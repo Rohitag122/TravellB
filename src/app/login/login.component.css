@@ -1,0 +1,92 @@
+/* Login Container */
+.login-container {
+  max-width: 400px;
+  margin: 100px auto; /* Center the form vertically and horizontally */
+  padding: 20px;
+  background: linear-gradient(135deg, #ffccbc, #ffe082); /* Multi-color gradient background */
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Login Form Styles */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+}
+
+/* Title Styles */
+h2 {
+  color: #00796b; /* Teal color for the title */
+  margin-bottom: 20px;
+}
+
+/* Form Group Styles */
+.form-group {
+  width: 100%;
+  margin-bottom: 15px; /* Space between fields */
+}
+
+/* Input Styles */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border 0.3s; /* Smooth border transition */
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border: 1px solid #00796b; /* Change border color on focus */
+}
+
+/* Button Styles */
+button {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(135deg, #4caf50, #81c784); /* Green gradient for button */
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s; /* Smooth transition */
+}
+
+button:hover {
+  background: linear-gradient(135deg, #388e3c, #66bb6a); /* Darker green on hover */
+  transform: translateY(-2px); /* Lift button on hover */
+}
+
+/* Forgot Password Link */
+.forgot-password {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.forgot-password a {
+  color: #1976d2; /* Blue color for links */
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Signup Link */
+.signup-link {
+  text-align: center;
+  margin-top: 20px;
+  color: #555; /* Dark grey for text */
+}
+
+.signup-link a {
+  color: #ff5722; /* Orange color for the signup link */
+  text-decoration: none;
+}
+
+.signup-link a:hover {
+  text-decoration: underline; /* Underline on hover */
+}

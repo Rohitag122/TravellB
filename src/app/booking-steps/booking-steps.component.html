@@ -1,0 +1,45 @@
+<div class="booking-steps-container">
+  <h2>Booking Steps</h2>
+  <ol>
+    <li *ngFor="let step of steps; let i = index" [class.active]="i + 1 === currentStep">
+      {{ step }}
+    </li>
+  </ol>
+
+  <div class="step-content">
+    <ng-container [ngSwitch]="currentStep">
+      <ng-container *ngSwitchCase="1">
+        <h3>Select Booking Type</h3>
+        <button (click)="setBookingType('Hotel')">Hotel</button>
+        <button (click)="setBookingType('Flight')">Flight</button>
+        <button (click)="setBookingType('Package')">Package</button>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="2">
+        <h3>Enter Booking Details</h3>
+        <ng-container *ngIf="selectedType === 'Hotel'">
+          <app-hotels (next)="nextStep()"></app-hotels>
+        </ng-container>
+        <ng-container *ngIf="selectedType === 'Flight'">
+          <app-flights (next)="nextStep()"></app-flights>
+        </ng-container>
+        <ng-container *ngIf="selectedType === 'Package'">
+          <app-packages (next)="nextStep()"></app-packages>
+        </ng-container>
+        <button (click)="previousStep()">Back</button>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="3">
+        <h3>Payment</h3>
+        <app-payment (next)="nextStep()"></app-payment>
+        <button (click)="previousStep()">Back</button>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="4">
+        <h3>Confirmation</h3>
+        <p>Your booking has been confirmed!</p>
+        <button (click)="previousStep()">Back to Booking Details</button>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

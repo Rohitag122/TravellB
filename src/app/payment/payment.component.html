@@ -1,0 +1,26 @@
+<div class="payment-container">
+  <h2>Payment Details</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" [(ngModel)]="name" name="name" placeholder="Your Name" required />
+    </div>
+    <div class="form-group">
+      <label for="checkIn">Check-In Date</label>
+      <input type="date" id="checkIn" [(ngModel)]="checkIn" name="checkIn" required />
+    </div>
+    <div class="form-group">
+      <label for="checkOut">Check-Out Date</label>
+      <input type="date" id="checkOut" [(ngModel)]="checkOut" name="checkOut" required />
+    </div>
+    <div class="form-group">
+      <label for="paymentMethod">Payment Method</label>
+      <select id="paymentMethod" [(ngModel)]="paymentMethod" name="paymentMethod" required>
+        <option value="">Select Payment Method</option>
+        <option value="Credit Card">Credit Card</option>
+        <option value="Paytm">Paytm</option>
+      </select>
+    </div>
+    <button type="submit">Proceed to Payment</button>
+  </form>
+</div>

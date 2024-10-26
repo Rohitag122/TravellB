@@ -1,0 +1,203 @@
+body {
+    background-color: #f5f5f5; /* Light background */
+    font-family: Arial, sans-serif;
+    margin: 0;
+  }
+  
+  .bus-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .bus-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Four cards per row */
+    gap: 20px; /* Space between cards */
+    width: 100%; /* Full width */
+    max-width: 15000px; /* Max width for larger screens (adjusted) */
+    height: auto;
+    padding: 20px; /* Padding around the container */
+    border-radius: 10px; /* Rounded corners for the container */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for the container */
+    background: linear-gradient(135deg, #6dd5ed, #2193b0); /* Blue gradient for buses */
+    position: relative; /* Enable positioning for child elements */
+  }
+  
+  .bus-card {
+    background: white; /* Card background */
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px; /* Increased padding for larger content area */
+    height: 400px; /* Increased height for cards */
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column; /* Allow for vertical stacking of elements */
+    justify-content: space-between; /* Space between elements */
+  }
+  
+  .bus-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .bus-slider img {
+    width: 100%;
+    height: 150px; /* Fixed height for images */
+    border-radius: 10px;
+    object-fit: cover; /* Maintain aspect ratio */
+  }
+  
+  button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  button:hover {
+    opacity: 0.9; /* Slight hover effect for all buttons */
+  }
+  
+  .load-buttons {
+    position: absolute; /* Position relative to the container */
+    bottom: 20px; /* Position from the bottom */
+    right: 20px; /* Position from the right */
+  }
+  
+  .load-buttons button {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b); /* Gradient for Load More */
+    color: white;
+    padding: 10px 20px; /* Add padding for a better look */
+    border-radius: 5px;
+  }
+  
+  .load-buttons button:hover {
+    background: linear-gradient(135deg, #c03656, #d74f3f); /* Darker gradient on hover */
+  }
+  
+  .button-group {
+    display: flex; /* Align buttons in a row */
+    justify-content: space-between; /* Space between buttons */
+    margin-top: 10px; /* Space above the button group */
+  }
+  
+  .read-more-button {
+    background-color: #dc3545; /* Red for Read More */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    flex: 1; /* Take equal space */
+    margin-right: 10px; /* Space between buttons */
+    transition: background-color 0.3s; /* Transition effect */
+  }
+  
+  .book-now-button {
+    background-color: #28a745; /* Green for Book Now */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    flex: 1; /* Take equal space */
+    transition: background-color 0.3s; /* Transition effect */
+  }
+  
+  .read-more-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
+  
+  .book-now-button:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+  
+  .booking-form {
+    background: linear-gradient(135deg, #f9c9c9, #f1e0e0); /* Light background for booking form */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 20;
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+  }
+  
+  h3 {
+    color: #333; /* Darker text for headings */
+  }
+  
+  p {
+    color: #555; /* Medium gray for paragraph text */
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  /* Payment Method Styles */
+  .payment-method {
+    margin-top: 15px;
+    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Multi-color background for payment method */
+    padding: 15px;
+    border-radius: 10px; /* Rounded corners */
+  }
+  
+  .payment-method label {
+    color: white; /* White text for label */
+  }
+  
+  .payment-method select {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.8); /* Light background for select */
+    transition: border-color 0.3s;
+  }
+  
+  .payment-method select:focus {
+    outline: none;
+    border-color: #007bff; /* Blue border on focus */
+  }
+  
+  /* Payment Button Styles */
+  .payment-button {
+    background-color: #ffc107; /* Yellow for payment button */
+    color: white;
+  }
+  
+  .payment-button:hover {
+    background-color: #e0a800; /* Darker yellow on hover */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 1200px) {
+    .bus-container {
+      grid-template-columns: repeat(3, 1fr); /* Three cards per row */
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .bus-container {
+      grid-template-columns: repeat(2, 1fr); /* Two cards per row */
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .bus-container {
+      grid-template-columns: 1fr; /* One card per row */
+    }
+  }
+  

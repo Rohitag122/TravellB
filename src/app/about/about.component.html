@@ -1,0 +1,39 @@
+<div class="about-container">
+  <h1>{{ title }}</h1>
+  <p class="description">{{ description }}</p>
+  
+  <h2>Our Services</h2>
+  <ul class="services-list">
+    <li *ngFor="let service of services">
+      <span class="icon">&#10003;</span> {{ service }} <!-- Checkmark as an icon -->
+    </li>
+  </ul>
+  
+  <div class="image-gallery">
+    <img src="https://images.unsplash.com/photo-1517176642928-dfc2da661b3f?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Travel Image 1" />
+    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGZsaWdodCUyMHRpY2tldHN8ZW58MHx8MHx8fDA%3D" alt="Travel Image 2" />
+    <img src="https://images.unsplash.com/photo-1517840901100-8179e982acb7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG90ZWx8ZW58MHx8MHx8fDA%3D" alt="Travel Image 3" />
+  </div>
+  
+  <h2>Why Choose Us?</h2>
+  <p>We provide the best travel experience with:</p>
+  <ul class="why-choose-list">
+    <li><span class="icon">&#9733;</span> 24/7 Customer Support</li> <!-- Star as an icon -->
+    <li><span class="icon">&#9733;</span> Best Price Guarantee</li>
+    <li><span class="icon">&#9733;</span> Expert Travel Advisors</li>
+    <li><span class="icon">&#9733;</span> Customizable Packages</li>
+  </ul>
+
+  <h2>What Our Customers Say</h2>
+  <div class="testimonials">
+    <div class="testimonial" *ngFor="let testimonial of testimonials">
+      <p>"{{ testimonial.feedback }}"</p>
+      <p class="customer-name">- {{ testimonial.name }}</p>
+    </div>
+  </div>
+  
+  <h2>Contact Us</h2>
+  <p>If you have any questions or would like to know more about our services, feel free to reach out!</p>
+  <p>Email: <a href="mailto:info&#64;agarwaltravels.com">info&#64;agarwaltravels.com</a></p>
+  <p>Phone: <a href="tel:+1234567890">+1 234 567 890</a></p>
+</div>

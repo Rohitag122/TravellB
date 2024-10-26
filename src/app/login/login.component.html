@@ -1,0 +1,22 @@
+<div class="login-container">
+  <div class="login-form">
+    <h2>Login</h2>
+    <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+      <div class="form-group">
+        <label for="emailOrMobile">Email or Mobile:</label>
+        <input type="text" id="emailOrMobile" [(ngModel)]="emailOrMobile" name="emailOrMobile" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" [(ngModel)]="password" name="password" required />
+      </div>
+
+      <button type="submit" [disabled]="!loginForm.form.valid">Login</button>
+      <p class="forgot-password"><a href="#">Forgot Password?</a></p>
+    </form>
+    <p class="signup-link">
+      Don't have an account? <a href="#">Join Now</a>
+    </p>
+  </div>
+</div>

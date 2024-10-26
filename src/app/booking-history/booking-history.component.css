@@ -1,0 +1,168 @@
+/* Main container for the booking component */
+.booking-container {
+  width: 90%;
+  margin: auto;
+  padding: 30px;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Styling for the tabs section */
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 10px 0;
+}
+
+/* Individual tab styling */
+.tab {
+  padding: 12px 25px;
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #fff;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect for tabs */
+.tab:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+/* Active tab styling */
+.tab.active {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Booking content layout */
+.booking-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* Styling for individual booking cards */
+.booking-card {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for booking cards */
+.booking-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Styling for booking info */
+.booking-info h3 {
+  font-size: 1.5em;
+  margin: 0 0 10px;
+}
+
+.booking-info p {
+  margin: 5px 0;
+  color: #e0e0e0;
+}
+
+/* Styling for the no bookings section */
+.no-bookings {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.no-bookings img {
+  max-width: 150px;
+  margin-bottom: 20px;
+}
+
+.no-bookings p {
+  font-size: 1.2em;
+  color: #fff;
+}
+
+/* Buttons styling */
+button {
+  background-color: #ff5722;
+  border: none;
+  padding: 10px 20px;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #e64a19;
+}
+
+/* Modal backdrop styling */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal styling */
+.modal {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 80%;
+  max-width: 500px;
+  text-align: center;
+  color: #333;
+}
+
+.modal h3 {
+  margin-bottom: 20px;
+}
+
+.modal p {
+  margin-bottom: 10px;
+}
+
+.modal button {
+  background-color: #d32f2f;
+}
+
+.modal button:hover {
+  background-color: #b71c1c;
+}
+/* Discount section styling */
+.discount-section {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.discount-image {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.discount-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
