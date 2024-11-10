@@ -1,59 +1,94 @@
-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #333;
-    color: white;
-  }
-  
-  .logo img {
-    height: 40px; /* Adjust logo height as needed */
-  }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .nav-links li {
-    margin: 0 15px;
-  }
-  
-  .nav-links a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .search-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .search-container input {
-    padding: 5px;
-    border: none;
-    border-radius: 3px;
-  }
-  
-  .search-container button {
-    background: transparent;
-    border: none;
-    color: white;
-    cursor: pointer;
-    padding-left: 5px;
-  }
-  
-  .icons {
-    display: flex;
-    align-items: center;
-  }
-  
-  .icons a {
-    color: white;
-    margin-left: 15px;
-    text-decoration: none;
-  }
-  
+/* Main container styling with full-width background and shape animations */
+.combined-container {
+  padding: 40px;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  animation: backgroundTransition 36s infinite linear;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100vh; /* Makes the container height fill the viewport */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Continuous background transition with full-width images */
+@keyframes backgroundTransition {
+  10% { background-image: url('https://images.travelandleisureasia.com/wp-content/uploads/sites/2/2022/10/25183901/nainital.jpg'); }
+  16.6% { background-image: url('https://static.toiimg.com/photo/58490365.cms'); }
+  33.2% { background-image: url('https://media2.thrillophilia.com/images/photos/000…89819_Jog-Falls-Wallpaper.jpg?w=753&h=450&dpr=1.5'); }
+  49.8% { background-image: url('https://i0.wp.com/traveltoyournature.com/wp-content/uploads/2023/07/beautiful-nature-india-1-1024x768.jpeg?resize=1024%2C768'); }
+  66.4% { background-image: url('https://i0.wp.com/traveltoyournature.com/wp-content/uploads/2023/07/most-beautiful-nature-india.jpeg?fit=936%2C702&ssl=1'); }
+  83% { background-image: url('https://i0.wp.com/traveltoyournature.com/wp-content/uploads/2023/07/most-beautiful-mountains-in-india-scaled.jpeg?resize=1024%2C679&ssl=1'); }
+  100% { background-image: url('https://cdn.britannica.com/65/162465-050-9CDA9BC9/Alps-Switzerland.jpg'); }
+}
+
+/* Shape overlays with continuous movement and scaling */
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: moveShapes 25s ease-in-out infinite alternate, scaleShapes 15s ease-in-out infinite alternate;
+  pointer-events: none;
+  transition: transform 0.3s;
+}
+
+.shape.shape1 { width: 120px; height: 120px; top: 10%; left: 5%; background-color: #f8b400; }
+.shape.shape2 { width: 80px; height: 80px; top: 30%; left: 75%; background-color: #4dc0b5; }
+.shape.shape3 { width: 150px; height: 150px; bottom: 15%; right: 10%; background-color: #f85a40; }
+
+
+/* Moving and scaling shapes */
+@keyframes moveShapes {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(20px, -20px) rotate(15deg); }
+}
+
+@keyframes scaleShapes {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* Text animation for a smooth fade and slight motion */
+.animated-text {
+  animation: textTransition 3s ease-in-out infinite alternate;
+}
+
+@keyframes textTransition {
+  0% { transform: translateY(0); opacity: 0.9; }
+  100% { transform: translateY(-5px); opacity: 1; }
+}
+
+/* Button styling */
+.btn-primary {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #004494;
+  transform: scale(1.05) translateY(-3px);
+}
+.main{
+  background-size: cover;
+  background-position: center;
+  color: #101111;
+  padding: 40px 20px;
+  background:#658e91
+}
+/* Footer styling */
+.footer {
+  background-size: cover;
+  background-position: center;
+  color: #101111;
+  padding: 40px 20px;
+  background:#375c5e
+}

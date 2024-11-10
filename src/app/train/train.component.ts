@@ -1,133 +1,109 @@
 import { Component } from '@angular/core';
 
+import { PaymentService } from '../payment.service';
+import { BokingService } from '../boking.service';
+
 @Component({
   selector: 'app-train',
   templateUrl: './train.component.html',
-  styleUrl: './train.component.css'
+  styleUrls: ['./train.component.css']
 })
 export class TrainComponent {
+  trains: { title: string; details: string; image: string }[] = [];
+  bookingDetails: any = null;
 
-  trains = [
+  // Sample popular train routes data
+  popularTrains = [
     {
-      name: 'Express Train',
-      price: 1500,
-      departureTime: '09:00 AM',
-      arrivalTime: '12:00 PM',
-      duration: '3h',
-      amenities: ['AC', 'Wi-Fi', 'Food Service'],
-      details: 'Fast and comfortable express train with premium services.',
-      images: ['https://assets.cntraveller.in/photos/6620b846437714505a7ebe31/1:1/w_3712,h_3712,c_limit/2WXHFE5.jpg', 'assets/images/train2.jpg'],
-      showDetails: false,
+      title: 'Train A123',
+      details: 'Popular route from New York to Washington D.C.',
+      image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRyYWluc3xlbnwwfHwwfHx8MA%3D%3D'
     },
     {
-      name: 'Intercity Train',
-      price: 800,
-      departureTime: '01:00 PM',
-      arrivalTime: '03:30 PM',
-      duration: '2.5h',
-      amenities: ['Wi-Fi', 'Food Service'],
-      details: 'Convenient intercity train with good amenities.',
-      images: ['https://inter-city.co.uk/wp-content/uploads/2021/12/intercity-train-class90@2x.jpg', 'assets/images/train4.jpg'],
-      showDetails: false,
+      title: 'Train B456',
+      details: 'Popular route from Chicago to New Orleans',
+      image: 'https://c4.wallpaperflare.com/wallpaper/742/301/266/train-railway-steam-locomotive-wallpaper-preview.jpg'
     },
     {
-      name: 'Local Train',
-      price: 300,
-      departureTime: '07:30 AM',
-      arrivalTime: '09:00 AM',
-      duration: '1.5h',
-      amenities: ['General Seating'],
-      details: 'Economical option for short distances.',
-      images: ['https://upload.wikimedia.org/wikipedia/commons/b/b4/Western-Railway-Medha-EMU.jpg', 'assets/images/train6.jpg'],
-      showDetails: false,
-    },
-    {
-      name: 'Luxury Train',
-      price: 5000,
-      departureTime: '05:00 PM',
-      arrivalTime: '08:00 PM',
-      duration: '3h',
-      amenities: ['AC', 'Catering', 'Private Restrooms'],
-      details: 'A luxury travel experience with top-notch services.',
-      images: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzU0yK9kQlLg5tnqUxntsxzUNqzkkVe8by_A&s', 'assets/images/train8.jpg'],
-      showDetails: false,
-    },
-    {
-      name: 'Fast Train',
-      price: 2000,
-      departureTime: '10:30 AM',
-      arrivalTime: '01:00 PM',
-      duration: '2.5h',
-      amenities: ['AC', 'Wi-Fi'],
-      details: 'Fast train with comfortable seating.',
-      images: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7CiSylGbLp1naUp2a8l2g23IVP_Rdl-FvPQ&s', 'assets/images/train10.jpg'],
-      showDetails: false,
-    },
-    {
-      name: 'Metro',
-      price: 600,
-      departureTime: '11:00 AM',
-      arrivalTime: '02:00 PM',
-      duration: '3h',
-      amenities: ['General Seating'],
-      details: 'Affordable option for budget travelers.',
-      images: ['https://www.ltmetro.in/media/30061/rolling-stock.jpg', 'assets/images/train12.jpg'],
-      showDetails: false,
-    },
-   
-    {
-      name: 'Scenic Train',
-      price: 2500,
-      departureTime: '09:00 AM',
-      arrivalTime: '11:00 AM',
-      duration: '2h',
-      amenities: ['AC', 'Sightseeing'],
-      details: 'Enjoy breathtaking views on your journey.',
-      images: ['https://static.toiimg.com/photo/msid-93023585,width-96,height-65.cms', 'assets/images/train16.jpg'],
-      showDetails: false,
-    },
+      title: 'Train C789',
+      details: 'Popular route from San Francisco to Los Angeles',
+      image: 'https://i.pinimg.com/originals/83/f1/ba/83f1ba11e1f3dfe7a96a4761707dbf3b.jpg'
+    }
+  ];
 
-  ]
-  activeIndex: number[] = [];
-  showMore = false;
-  showModal = false;
-  selectedTrain: any;
-  name: string = '';
-  travelDate: string = '';
-  classType: string = '';
-  paymentMethod: string = '';
+  // Variable to track if the trip is round trip
+  isRoundTrip = false;
 
-  toggleDetails(index: number): void {
-    this.trains[index].showDetails = !this.trains[index].showDetails;
+  constructor(private bookingService: BokingService, private paymentService: PaymentService) { }
+
+  // Call the service to get train details
+  onBookingSelection() {
+    this.bookingDetails = this.bookingService.getBookingDetails('train');
+    console.log('Booking Details:', this.bookingDetails);
+    alert('Train details loaded successfully');
   }
 
-  onBookNow(train: any): void {
-    this.selectedTrain = train;
-    this.showModal = true;
+  // Call the service to process payment
+  processPayment() {
+    if (this.bookingDetails) {
+      console.log('Processing payment for the booking:', this.bookingDetails);
+      this.paymentService.processPayment(this.bookingDetails);
+      alert('Payment is being processed...');
+    } else {
+      console.error('No booking details found!');
+      alert('Please select a train before proceeding to payment.');
+    }
   }
 
-  closeModal(): void {
-    this.showModal = false;
-    this.selectedTrain = null;
+  // Handle trip type change (Round trip or One way)
+  onTripTypeChange(event: any) {
+    this.isRoundTrip = event.target.value === 'round-trip';
   }
 
-  loadMore(): void {
-    this.showMore = true;
-  }
+  // Handle form submission and search for trains
+  onSubmit(form: any) {
+    const source = form.value.source;
+    const destination = form.value.destination;
+    const date = form.value.date;
+    const travelClass = form.value.travelClass;
+    
+    const returnDate = this.isRoundTrip ? form.value.returnDate : null;
 
-  loadLess(): void {
-    this.showMore = false;
-  }
-
-  onSubmit(): void {
-    // Handle booking submission logic here
-    console.log('Booking submitted:', {
-      name: this.name,
-      travelDate: this.travelDate,
-      classType: this.classType,
-      paymentMethod: this.paymentMethod,
-      train: this.selectedTrain.name
+    // Log the search criteria
+    console.log('Search Criteria:', {
+      source,
+      destination,
+      date,
+      returnDate,
+      travelClass,
+      tripType: this.isRoundTrip ? 'Round Trip' : 'One Way'
     });
-    this.closeModal(); // Close the modal after submission
+
+    // Perform train search with provided criteria
+    this.trains = this.searchTrains(source, destination, date, returnDate, travelClass);
+  }
+
+  searchTrains(source: string, destination: string, date: string, returnDate: string | null, travelClass: string): { title: string; details: string; image: string }[] {
+    // Dummy implementation of search logic
+    return [
+      {
+        title: `Train D123`,
+        details: `From ${source} to ${destination} on ${date}, Class: ${travelClass}` + (this.isRoundTrip ? `, Return on ${returnDate}` : ''),
+        image: 'https://c4.wallpaperflare.com/wallpaper/444/432/860/train-steam-train-locomotive-wallpaper-preview.jpg'
+      },
+      {
+        title: `Train E456`,
+        details: `From ${source} to ${destination} on ${date}, Class: ${travelClass}` + (this.isRoundTrip ? `, Return on ${returnDate}` : ''),
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY6l5qCq1b1xNYxHd1HYyKJvEnJg6O9dq_UQ&s'
+      }
+    ];
+  }
+
+  // Function to handle the "Book Now" button click
+  onBookNow(train: any) {
+    console.log('Train booked:', train);
+    alert(`Booking confirmed for ${train.title}!`);
+    // Call the payment service to process payment for the selected train
+    this.paymentService.processPayment(train);
   }
 }

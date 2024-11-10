@@ -1,160 +1,108 @@
+import { Component } from '@angular/core';
+import { PaymentService } from '../payment.service';
+import { BokingService } from '../boking.service';
 
-    import { Component } from '@angular/core';
+@Component({
+  selector: 'app-bus',
+  templateUrl: './bus.component.html',
+  styleUrls: ['./bus.component.css']
+})
+export class BusComponent {
+  buses: { title: string; details: string; image: string }[] = [];
+  bookingDetails: any = null;
 
-    // Define an interface for bus data
-    interface Bus {
-      name: string;
-      price: number;
-      departureTime: string;
-      arrivalTime: string;
-      duration: string;
-      amenities: string[];
-      images: string[];
-      showDetails: boolean;
-      details: string;
+  // Sample popular bus routes data
+  popularBuses = [
+    {
+      title: 'Bus B123',
+      details: 'Popular route from New York to Boston.',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Blue_&_Yellow_Bus.jpg'
+    },
+    {
+      title: 'Bus B456',
+      details: 'Popular route from Los Angeles to San Francisco.',
+      image: 'https://images.unsplash.com/photo-1604920600456-8f1946509b71'
+    },
+    {
+      title: 'Bus B789',
+      details: 'Popular route from Chicago to Detroit.',
+      image: 'https://images.unsplash.com/photo-1588251244215-c0c6f20ac6c3'
     }
+  ];
+
+  // Variable to track if the trip is round trip
+  isRoundTrip = false;
+
+  constructor(private bookingService: BokingService, private paymentService: PaymentService) { }
+
+  // Call the service to get bus details
+  onBookingSelection() {
+    this.bookingDetails = this.bookingService.getBookingDetails('bus');
+    console.log('Booking Details:', this.bookingDetails);
+    alert('Bus details loaded successfully');
+  }
+
+  // Call the service to process payment
+  processPayment() {
+    if (this.bookingDetails) {
+      console.log('Processing payment for the booking:', this.bookingDetails);
+      this.paymentService.processPayment(this.bookingDetails);
+      alert('Payment is being processed...');
+    } else {
+      console.error('No booking details found!');
+      alert('Please select a bus before proceeding to payment.');
+    }
+  }
+
+  // Handle trip type change (Round trip or One way)
+  onTripTypeChange(event: any) {
+    this.isRoundTrip = event.target.value === 'round-trip';
+  }
+
+  // Handle form submission and search for buses
+  onSubmit(form: any) {
+    const source = form.value.source;
+    const destination = form.value.destination;
+    const date = form.value.date;
+    const travelClass = form.value.travelClass;
     
-    @Component({
-      selector: 'app-bus',
-      templateUrl: './bus.component.html',
-      styleUrls: ['./bus.component.css']
-    })
-    export class BusComponent {
-      buses: Bus[] = []; // Declare the buses array with the Bus interface type
-      showMore = false;
-      showModal = false;
-      selectedBus: Bus | null = null; // Specify that selectedBus can be a Bus or null
-      name: string = '';
-      travelDate: string = '';
-      classType: string = '';
-      paymentMethod: string = '';
-      activeIndex: number[] = [];
-    
-      constructor() {
-        // Sample bus data (update with actual data)
-        this.buses = [
-          {
-            name: 'Chandigarh-Shimla',
-            price: 1100,
-            departureTime: '10:00 AM',
-            arrivalTime: '2:00 PM',
-            duration: '10 hours',
-            amenities: ['Wi-Fi', 'AC', 'Refreshments'],
-            images: ['https://himachaltourpackage.co.in/wp-content/uploads/2020/09/Shimla-Volvo-Bus-Tour-Package.jpg', 'busA2.jpg'],
-            showDetails: false,
-            details: 'Details about Bus A'
-          },
-          {
-            name: 'Delhi-Dharmshala',
-            price: 600,
-            departureTime: '11:00 AM',
-            arrivalTime: '3:00 PM',
-            duration: '14 hours',
-            amenities: ['Wi-Fi', 'AC'],
-            images: ['https://www.holidaytravel.co/img_cache/100P172510364450367d8ccfbae.jpg', 'busB2.jpg'],
-            showDetails: false,
-            details: 'Details about Bus B'
-          },
-          {
-            name: 'Delhi-Goa',
-            price: 4600,
-            departureTime: '11:00 AM',
-            arrivalTime: '3:00 PM',
-            duration: '26 hours',
-            amenities: ['Wi-Fi', 'AC'],
-            images: ['https://goadarshanbus.com/wp-content/uploads/2023/07/FB_IMG_1685516912660-1-500x400.jpg', 'busB2.jpg'],
-            showDetails: false,
-            details: 'Details about Bus B'
-          },
-          {
-            name: 'Mumbai-Ahmedabad',
-            price: 2600,
-            departureTime: '11:00 AM',
-            arrivalTime: '3:00 PM',
-            duration: '22 hours',
-            amenities: ['Wi-Fi', 'AC'],
-            images: ['https://www.onlinebusbookingindia.com/uploads/37142_Mercedes%20bus%204.jpg', 'busB2.jpg'],
-            showDetails: false,
-            details: 'Details about Bus B'
-          },
-          {
-            name: 'Kolkata-Bhuvneshwar',
-            price: 1500,
-            departureTime: '11:00 AM',
-            arrivalTime: '3:00 PM',
-            duration: '15hours',
-            amenities: ['Wi-Fi', 'AC'],
-            images: ['https://goadarshanbus.com/wp-content/uploads/2023/07/FB_IMG_1685516912660-1-500x400.jpg', 'busB2.jpg'],
-            showDetails: false,
-            details: 'Details about Bus B'
-          },
-          // Add more bus objects as needed
-        ];
-      
-    
-      // ... Rest of the methods remain the same
-      }
-    
+    const returnDate = this.isRoundTrip ? form.value.returnDate : null;
 
-  toggleDetails(index: number) {
-    // Toggle the showDetails property for the selected bus
-    this.buses[index].showDetails = !this.buses[index].showDetails;
-  }
-
-  onBookNow(bus: any) {
-    // Set the selected bus and open the booking modal
-    this.selectedBus = bus;
-    this.showModal = true;
-  }
-
-  closeModal() {
-    // Close the booking modal
-    this.showModal = false;
-    this.resetForm(); // Reset form values when closing the modal
-  }
-
-  loadMore() {
-    // Show more buses
-    this.showMore = true;
-  }
-
-  loadLess() {
-    // Hide additional buses
-    this.showMore = false;
-  }
-
-  onSubmit() {
-    // Implement your booking logic here
-    console.log('Booking submitted:', {
-      name: this.name,
-      travelDate: this.travelDate,
-      classType: this.classType,
-      paymentMethod: this.paymentMethod
+    // Log the search criteria
+    console.log('Search Criteria:', {
+      source,
+      destination,
+      date,
+      returnDate,
+      travelClass,
+      tripType: this.isRoundTrip ? 'Round Trip' : 'One Way'
     });
-    this.closeModal(); // Close the modal after submission
+
+    // Perform bus search with provided criteria
+    this.buses = this.searchBuses(source, destination, date, returnDate, travelClass);
   }
 
-  prevImage(index: number) {
-    // Go to the previous image if available
-    if (this.activeIndex[index] > 0) {
-      this.activeIndex[index]--;
-    }
+  searchBuses(source: string, destination: string, date: string, returnDate: string | null, travelClass: string): { title: string; details: string; image: string }[] {
+    // Dummy implementation of search logic
+    return [
+      {
+        title: `Bus C123`,
+        details: `From ${source} to ${destination} on ${date}, Class: ${travelClass}` + (this.isRoundTrip ? `, Return on ${returnDate}` : ''),
+        image: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Blue_&_Yellow_Bus.jpg'
+      },
+      {
+        title: `Bus D456`,
+        details: `From ${source} to ${destination} on ${date}, Class: ${travelClass}` + (this.isRoundTrip ? `, Return on ${returnDate}` : ''),
+        image: 'https://images.unsplash.com/photo-1604920600456-8f1946509b71'
+      }
+    ];
   }
 
-  nextImage(index: number) {
-    // Go to the next image if available
-    if (this.activeIndex[index] < this.buses[index].images.length - 1) {
-      this.activeIndex[index]++;
-    }
-  }
-
-  private resetForm() {
-    // Reset form fields
-    this.name = '';
-    this.travelDate = '';
-    this.classType = '';
-    this.paymentMethod = '';
-    this.selectedBus = null; // Reset selected bus
+  // Function to handle the "Book Now" button click
+  onBookNow(bus: any) {
+    console.log('Bus booked:', bus);
+    alert(`Booking confirmed for ${bus.title}!`);
+    // Call the payment service to process payment for the selected bus
+    this.paymentService.processPayment(bus);
   }
 }
-  

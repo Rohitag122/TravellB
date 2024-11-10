@@ -1,71 +1,68 @@
-<div class="bus-list">
-  <div class="bus-container">
-    <div class="bus-card" *ngFor="let bus of buses; let i = index" [hidden]="!showMore && i >= 4">
-      <div class="bus-slider">
-        <img [src]="bus.images[activeIndex[i] || 0]" alt="{{ bus.name }}" />
-        <button (click)="prevImage(i)">&#10094;</button>
-        <button (click)="nextImage(i)">&#10095;</button>
-      </div>
-      <h3>{{ bus.name }}</h3>
-      <p><strong>Price:</strong> {{ bus.price }}</p>
-      <p><strong>Departure:</strong> {{ bus.departureTime }}</p>
-      <p><strong>Arrival:</strong> {{ bus.arrivalTime }}</p>
-      <p><strong>Duration:</strong> {{ bus.duration }}</p>
-      <p><strong>Amenities:</strong> {{ bus.amenities.join(', ') }}</p>
+<div class="main">
 
-      <div class="button-group">
-        <button (click)="toggleDetails(i)" class="read-more-button">Read More</button>
-        <button (click)="onBookNow(bus)" class="book-now-button">Book Now</button>
-      </div>
+  <div class="bus-search">
+    <h2>Search Buses</h2>
+    <div style="display:flex;flex-wrap: nowrap;align-items: center;justify-content: space-between;">
 
-      <div *ngIf="bus.showDetails">
-        <p>{{ bus.details }}</p>
-      </div>
-    </div>
+      <form (ngSubmit)="onSubmit(busSearchForm)" #busSearchForm="ngForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="source">Source:</label>
+            <input type="text" id="source" name="source" ngModel required />
+          </div>
+          <div class="form-group">
+            <label for="destination">Destination:</label>
+            <input type="text" id="destination" name="destination" ngModel required />
+          </div>
+          <div class="form-group">
+            <label for="date">Travel Date:</label>
+            <input type="date" id="date" name="date" ngModel required />
+          </div>
+          <div class="form-group">
+            <label for="travel-class">Travel Class:</label>
+            <select id="travel-class" name="travelClass" ngModel required>
+              <option value="standard">Standard</option>
+              <option value="semi-luxury">Semi-Luxury</option>
+              <option value="luxury">Luxury</option>
+            </select>
+          </div>
 
-    <div class="load-buttons">
-      <button *ngIf="!showMore" (click)="loadMore()">Load More</button>
-      <button *ngIf="showMore" (click)="loadLess()">Load Less</button>
+          <button type="submit" [disabled]="!busSearchForm.valid">Search</button>
+        </div>
+      </form>
     </div>
   </div>
+
+  <!-- Popular Buses Section -->
+  <div class="popular-buses">
+    <h3>Popular Buses</h3>
+    <div class="grid-container">
+      <div *ngFor="let popularBus of popularBuses" class="card">
+        <img [src]="popularBus.image" alt="Popular Bus Image" class="card-image" />
+        <div class="card-content">
+          <h4>{{ popularBus.title }}</h4>
+          <p>{{ popularBus.details }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Available Buses Section -->
+  <div *ngIf="buses.length > 0" class="bus-results">
+    <h3>Available Buses</h3>
+    <ul>
+      <li *ngFor="let bus of buses" class="bus-item">
+        <img [src]="bus.image" alt="Bus Image" class="bus-image" />
+        <div class="bus-info">
+          <span class="bus-title">{{ bus.title }}</span>
+          <span class="bus-details">{{ bus.details }}</span>
+
+         <button class="book-button" [routerLink]="'/app-payment'">Book Now</button>
+
+        </div>
+      </li>
+    </ul>
+  
+  </div>
+
 </div>
-
-<div class="booking-form" *ngIf="showModal">
-  <h2>Booking Information for {{ selectedBus?.name }}</h2>
-  <form (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label>Your Name</label>
-      <input type="text" [(ngModel)]="name" name="name" placeholder="Your Name" required />
-    </div>
-    <div class="form-group">
-      <label>Travel Date</label>
-      <input type="date" [(ngModel)]="travelDate" name="travelDate" required />
-    </div>
-    
-    <div class="form-group">
-      <label>Class Type</label>
-      <select [(ngModel)]="classType" name="classType" required>
-        <option value="">Select Class Type</option>
-        <option value="Sleeper">Sleeper</option>
-        <option value="Seater">Seater</option>
-        <option value="Luxury">Luxury</option>
-      </select>
-    </div>
-    
-    <!-- Payment Method Section -->
-    <div class="payment-method">
-      <label>Payment Method</label>
-      <select [(ngModel)]="paymentMethod" name="paymentMethod" required>
-        <option value="">Select Payment Method</option>
-        <option value="Credit Card">Credit Card</option>
-        <option value="Paytm">Paytm</option>
-        <option value="Net Banking">Net Banking</option>
-      </select>
-    </div>
-
-    <button type="submit" class="payment-button">Book Now</button>
-  </form>
-  <button (click)="closeModal()">Close</button>
-</div>
-
-<div *ngIf="showModal" class="overlay"></div>

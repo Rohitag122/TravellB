@@ -1,37 +1,181 @@
+/* Full page layout */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0; /* Light background color */
+}
+
+/* Container to hold the content */
 .payment-container {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
-    margin: 20px;
-    background-color: #f9f9f9;
+  height: 100%; /* Full screen height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background: linear-gradient(to right, #f0f0f0, #ffffff); /* Smooth gradient background */
+}
+
+/* Centered heading */
+h2 {
+  font-size: 2.5rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Booking details section */
+.booking-details {
+  width: 100%;
+  max-width: 800px; /* Limit width for readability */
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.booking-details h3 {
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.booking-details p {
+  font-size: 1.1rem;
+  margin: 8px 0;
+  color: #555;
+}
+
+/* Passenger details form */
+.passenger-details {
+  width: 100%;
+  max-width: 800px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.passenger-details label {
+  font-size: 1.1rem;
+  margin-top: 10px;
+  display: block;
+  color: #333;
+}
+
+.passenger-details input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* Price Summary */
+.payment-summary {
+  width: 100%;
+  max-width: 800px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.payment-summary p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #333;
+}
+
+/* Payment method selection */
+.payment-method {
+  width: 100%;
+  max-width: 800px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.payment-method label {
+  font-size: 1.1rem;
+  margin-top: 10px;
+  display: block;
+  color: #333;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* Payment buttons */
+.payment-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 800px;
+}
+
+button {
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive adjustments for smaller screens */
+@media screen and (max-width: 768px) {
+  h2 {
+    font-size: 2rem;
   }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  input, select {
+
+  .booking-details,
+  .passenger-details,
+  .payment-summary,
+  .payment-method {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 20px;
   }
-  
-  button {
-    background-color: #4CAF50; /* Green */
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    width: 100%;
+
+  .payment-buttons button {
+    font-size: 1rem;
+    padding: 10px 15px;
   }
-  
-  button:hover {
-    background-color: #45a049;
+}
+
+@media screen and (max-width: 480px) {
+  h2 {
+    font-size: 1.8rem;
   }
-  
+
+  .payment-buttons button {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+}

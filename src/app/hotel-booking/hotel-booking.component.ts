@@ -1,47 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { HotelBookingService } from '../hotel-booking.service';
+import { Component } from '@angular/core';
 
+interface HotelBooking {
+  hotel: string;
+  roomType: string;
+  checkin: Date;
+  checkout: Date;
+}
 
 @Component({
   selector: 'app-hotel-booking',
   templateUrl: './hotel-booking.component.html',
   styleUrls: ['./hotel-booking.component.css']
 })
-export class HotelBookingComponent implements OnInit {
-  availableHotels: string[] = [];
-  booking = {
+export class HotelBookingComponent {
+  availableHotels: string[] = ['Hotel Paradise', 'Grand Royal', 'Seaside Resort'];
+  booking: HotelBooking = {
     hotel: '',
     roomType: 'single',
-    checkin: '',
-    checkout: '',
-    guests: 1
+    checkin: new Date(),
+    checkout: new Date()
   };
 
-  constructor(private hotelBookingService: HotelBookingService) {}
-
-  ngOnInit() {
-    this.fetchAvailableHotels();
-  }
-
-  fetchAvailableHotels() {
-    this.hotelBookingService.getHotels().subscribe(
-      (hotels: string[]) => {
-        this.availableHotels = hotels;
-      },
-      (error) => {
-        console.error('Failed to fetch hotels:', error);
-      }
-    );
-  }
-
   submitHotelBooking() {
-    this.hotelBookingService.bookHotel(this.booking).subscribe(
-      (response) => {
-        alert('Booking successful!');
-      },
-      (error) => {
-        console.error('Booking failed:', error);
-      }
-    );
+    console.log('Hotel Booking Details:', this.booking);
+    // Proceed to payment or save booking details
   }
 }

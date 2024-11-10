@@ -10,7 +10,7 @@ import { EventService, Event } from '../event.service';
       <h2>{{ event.name }}</h2>
       <p>Date: {{ event.date }}</p>
       <p>Available Tickets: {{ event.availableTickets }}</p>
-      <app-booking-form [eventId]="event.id"></app-booking-form>
+   
     </div>
     <app-footer></app-footer>
   `

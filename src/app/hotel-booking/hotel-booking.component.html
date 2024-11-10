@@ -23,10 +23,6 @@
       <label for="checkout">Check-out Date:</label>
       <input type="date" id="checkout" [(ngModel)]="booking.checkout" name="checkout" required>
     </div>
-    <div class="form-group">
-      <label for="guests">Number of Guests:</label>
-      <input type="number" id="guests" [(ngModel)]="booking.guests" name="guests" min="1" required>
-    </div>
     <button type="submit" class="btn-submit">Proceed to Payment</button>
   </form>
 </div>

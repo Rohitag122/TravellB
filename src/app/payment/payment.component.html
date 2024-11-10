@@ -1,26 +1,51 @@
 <div class="payment-container">
-  <h2>Payment Details</h2>
-  <form (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="name">Your Name</label>
-      <input type="text" id="name" [(ngModel)]="name" name="name" placeholder="Your Name" required />
-    </div>
-    <div class="form-group">
-      <label for="checkIn">Check-In Date</label>
-      <input type="date" id="checkIn" [(ngModel)]="checkIn" name="checkIn" required />
-    </div>
-    <div class="form-group">
-      <label for="checkOut">Check-Out Date</label>
-      <input type="date" id="checkOut" [(ngModel)]="checkOut" name="checkOut" required />
-    </div>
-    <div class="form-group">
-      <label for="paymentMethod">Payment Method</label>
-      <select id="paymentMethod" [(ngModel)]="paymentMethod" name="paymentMethod" required>
-        <option value="">Select Payment Method</option>
-        <option value="Credit Card">Credit Card</option>
-        <option value="Paytm">Paytm</option>
-      </select>
-    </div>
-    <button type="submit">Proceed to Payment</button>
-  </form>
+  <h2>Checkout</h2>
+  
+  <div class="booking-details">
+    <h3>Booking Details</h3>
+    <p><strong>Booking Type:</strong> {{ bookingDetails.bookingType }}</p>
+    <p><strong>Hotel Name:</strong> {{ bookingDetails.hotelName }}</p>
+    <p><strong>Check-in:</strong> {{ bookingDetails.checkIn }}</p>
+    <p><strong>Check-out:</strong> {{ bookingDetails.checkOut }}</p>
+    <p><strong>Flight Number:</strong> {{ bookingDetails.flightNumber }}</p>
+    <p><strong>Departure Date:</strong> {{ bookingDetails.departureDate }}</p>
+    <p><strong>Departure Time:</strong> {{ bookingDetails.departureTime }}</p>
+    <p><strong>Train Number:</strong> {{ bookingDetails.trainNumber }}</p>
+    <p><strong>Bus Route:</strong> {{ bookingDetails.busRoute }}</p>
+  </div>
+
+  <div class="passenger-details">
+    <h3>Passenger Details</h3>
+    <label for="passengerName">Name:</label>
+    <input id="passengerName" [(ngModel)]="bookingDetails.passengerName" type="text" placeholder="Enter name">
+    
+    <label for="passengerContact">Contact:</label>
+    <input id="passengerContact" [(ngModel)]="bookingDetails.passengerContact" type="text" placeholder="Enter contact">
+  </div>
+
+  <div class="price-summary">
+    <h3>Price Summary</h3>
+    <p><strong>Total Amount:</strong> ₹{{ bookingDetails.totalAmount }}</p>
+    <p><strong>Discount:</strong> -₹{{ bookingDetails.discount }}</p>
+    <p><strong>Convenience Fee:</strong> ₹{{ bookingDetails.convenienceFee }}</p>
+    <p><strong>Tax:</strong> ₹{{ bookingDetails.tax }}</p>
+    <p><strong><u>Final Amount:</u></strong> ₹{{ bookingDetails.finalAmount }}</p>
+  </div>
+
+  <div class="payment-method">
+    <h3>Payment Method</h3>
+    <select [(ngModel)]="paymentMethod" (change)="onPaymentMethodChange()">
+      <option value="">Select Payment Method</option>
+      <option value="NetBanking">Net Banking</option>
+      <option value="Paytm">Paytm</option>
+      <option value="PhonePe">PhonePe</option>
+    </select>
+  </div>
+
+  <div class="payment-buttons">
+    <button (click)="onSubmit()">Submit Payment</button>
+    <button (click)="redirectToNetBanking()">Proceed with Net Banking</button>
+    <button (click)="redirectToPaytm()">Proceed with Paytm</button>
+    <button (click)="redirectToPhonePay()">Proceed with PhonePe</button>
+  </div>
 </div>

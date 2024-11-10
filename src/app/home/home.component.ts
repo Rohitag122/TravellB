@@ -1,25 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { EventService, Event } from '../event.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
-  template: `
-    <app-nav-bar></app-nav-bar>
-    <h1>Available Events</h1>
-    <ul>
-      <li *ngFor="let event of events">
-        <a [routerLink]="['/event', event.id]">{{ event.name }} - {{ event.date }}</a>
-      </li>
-    </ul>
- 
-  `
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
-  events: Event[] = [];
+export class HomeComponent {
 
-  constructor(private eventService: EventService) {}
+  // Constructor
+  constructor() { }
 
-  ngOnInit() {
-    this.events = this.eventService.getEvents();
+  // Method for handling search form submission
+  onSearchSubmit(event: Event): void {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const bookingType = (form.querySelector('#searchType') as HTMLSelectElement).value;
+    const destination = (form.querySelector('input[name="destination"]') as HTMLInputElement).value;
+    const date = (form.querySelector('input[name="date"]') as HTMLInputElement).value;
+    const guests = (form.querySelector('input[name="guests"]') as HTMLInputElement).value;
+
+    console.log('Booking Type:', bookingType);
+    console.log('Destination:', destination);
+    console.log('Date:', date);
+    console.log('Number of Guests:', guests);
+    
+    // Here, you could handle search logic or navigate to search results.
+    alert(`Searching for ${bookingType} in ${destination} on ${date} for ${guests} guest(s).`);
   }
 }

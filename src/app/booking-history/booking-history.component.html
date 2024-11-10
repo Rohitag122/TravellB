@@ -20,7 +20,6 @@
           <p>Date: {{ booking.date }}</p>
           <p>Location: {{ booking.location }}</p>
           <p>Price: ${{ booking.price }}</p>
-          <p *ngIf="booking.discount">Discount: {{ booking.discount }}% Off</p>
           <p *ngIf="booking.offer">Offer: {{ booking.offer }}</p>
         </div>
         <button *ngIf="selectedTab === 'upcoming'" (click)="openCancelModal($event, booking); $event.stopPropagation()">
@@ -36,27 +35,35 @@
       </div>
     </ng-template>
   </div>
-</div>
 
-<!-- Cancel Modal -->
-<div *ngIf="showCancelModal" class="modal-backdrop">
-  <div class="modal">
-    <h3>Cancel Booking</h3>
-    <p>Select the passengers you want to cancel:</p>
-    <div *ngFor="let passenger of selectedBooking?.passengers">
-      <input type="checkbox" [value]="passenger.id" [(ngModel)]="passenger.isSelected" />
-      {{ passenger.name }} (ID: {{ passenger.id }})
-    </div>
-    <p>Select a reason for cancellation:</p>
-    <div *ngFor="let reason of cancellationReasons">
-      <input type="checkbox" [value]="reason" [(ngModel)]="selectedReasons" />
-      {{ reason }}
-    </div>
-    <button (click)="confirmCancellation()">Confirm</button>
-    <button (click)="closeCancelModal()">Close</button>
+  <!-- Cancel Modal -->
+  <div *ngIf="showCancelModal" class="modal-backdrop">
+    <div class="modal">
+      <h3>Cancel Booking</h3>
+      <p>Are you sure you want to cancel this booking?</p>
 
-  </div>
-    <div class="discount-section">
-    <img src="https://img.freepik.com/free-vector/flat-travel-ex…horizontal-sale-banner-template_23-2150000796.jpg" alt="Special Discounts" class="discount-image">
+      <h4>Booking: {{ selectedBooking?.title }}</h4>
+      <p>Select the passengers you want to cancel:</p>
+      <div *ngFor="let passenger of selectedBooking?.passengers">
+        <input type="checkbox" [value]="passenger.id" [(ngModel)]="passenger.isSelected" />
+        {{ passenger.name }} (ID: {{ passenger.id }})
+      </div>
+
+      <p>Select a reason for cancellation:</p>
+      <div *ngFor="let reason of cancellationReasons">
+        <input type="checkbox" [value]="reason" (change)="toggleReason(reason)" />
+        {{ reason }}
+      </div>
+
+      <div *ngIf="selectedReasons.length > 0">
+        <h4>Selected Cancellation Reasons:</h4>
+        <ul>
+          <li *ngFor="let reason of selectedReasons">{{ reason }}</li>
+        </ul>
+      </div>
+
+      <button (click)="confirmCancellation()">Confirm</button>
+      <button (click)="closeCancelModal()">Close</button>
+    </div>
   </div>
 </div>

@@ -1,15 +1,6 @@
 import { Component } from '@angular/core';
-
-interface Booking {
-  title: string;
-  details: string;
-  date: string;
-  location: string;
-  price: number;
-  discount?: number;  // Optional field for discount
-  offer?: string;     // Optional field for special offers
-  passengers: { id: number; name: string; isSelected?: boolean }[];
-}
+import { BookingService, Passenger, Booking } from '../booking.service';
+import { Router } from '@angular/router'; // Importing Router
 
 @Component({
   selector: 'app-booking-history',
@@ -17,98 +8,94 @@ interface Booking {
   styleUrls: ['./booking-history.component.css']
 })
 export class BookingHistoryComponent {
+  selectedTab: string = 'upcoming';
+  showCancelModal: boolean = false;
+  selectedBooking: Booking | null = null;
+  selectedReasons: string[] = [];
+  cancellationReasons: string[] = [
+    'Change of Plans',
+    'Family Emergency',
+    'Health Issues',
+    'Other',
+  ];
 
+  constructor(private bookingService: BookingService, private router: Router) {}
 
-
- 
-    selectedTab: string = 'upcoming';
-    showCancelModal: boolean = false;
-    selectedBooking: Booking | null = null;
-    selectedReasons: string[] = [];
-    cancellationReasons: string[] = ['Change of plans', 'Health issues', 'Other'];
-  
-    upcomingBookings: Booking[] = [
-      {
-        title: 'Hotel Stay at Paradise Resort',
-        details: 'A luxurious stay with sea view and breakfast included.',
-        date: '2024-12-01',
-        location: 'Maldives',
-        price: 1500,
-        discount: 20,
-        offer: 'Get a complimentary dinner buffet.',
-        passengers: [
-          { id: 1, name: 'John Doe' },
-          { id: 2, name: 'Jane Smith' },
-        ]
-      },
-      {
-        title: 'Flight to New York',
-        details: 'Non-stop flight, economy class.',
-        date: '2024-11-15',
-        location: 'New York, USA',
-        price: 800,
-        passengers: [
-          { id: 3, name: 'Michael Brown' }
-        ]
-      }
-    ];
-  
-    cancelledBookings: Booking[] = [];
-    completedBookings: Booking[] = [
-      {
-        title: 'Train to Paris',
-        details: 'First-class ticket with meals included.',
-        date: '2024-10-10',
-        location: 'Paris, France',
-        price: 300,
-        passengers: [
-          { id: 4, name: 'Anna Johnson' }
-        ]
-      }
-    ];
-  
-    get selectedTabData(): Booking[] {
-      if (this.selectedTab === 'upcoming') {
-        return this.upcomingBookings;
-      } else if (this.selectedTab === 'cancelled') {
-        return this.cancelledBookings;
-      } else {
-        return this.completedBookings;
-      }
-    }
-  
-    selectTab(tab: string): void {
-      this.selectedTab = tab;
-    }
-  
-    openCancelModal(event: Event, booking: Booking): void {
-      event.stopPropagation();
-      this.showCancelModal = true;
-      this.selectedBooking = booking;
-    }
-  
-    closeCancelModal(): void {
-      this.showCancelModal = false;
-      this.selectedBooking = null;
-    }
-  
-    confirmCancellation(): void {
-      if (this.selectedBooking) {
-        // Remove booking from upcoming and add to cancelled
-        this.upcomingBookings = this.upcomingBookings.filter(b => b !== this.selectedBooking);
-        this.cancelledBookings.push(this.selectedBooking);
-        console.log('Cancellation confirmed:', this.selectedBooking);
-      }
-      this.closeCancelModal();
-    }
-  
-    openBookingDetails(booking: Booking): void {
-      alert(`Opening booking details: ${booking.title}`);
-      console.log('Booking details:', booking);
-    }
-  
-    navigateToBooking(): void {
-      alert('Navigating to booking page...');
+  // Method to fetch booking data based on selected tab (upcoming, cancelled, completed)
+  get selectedTabData(): Booking[] {
+    switch (this.selectedTab) {
+      case 'upcoming':
+        return this.bookingService.getUpcomingBookings();
+      case 'cancelled':
+        return this.bookingService.getCancelledBookings();
+      case 'completed':
+        return this.bookingService.getCompletedBookings();
+      default:
+        return [];
     }
   }
-  
+
+  // Select tab for navigation (upcoming, cancelled, completed)
+  selectTab(tab: string): void {
+    this.selectedTab = tab;
+  }
+
+  // Open the cancel modal when clicking cancel for a booking
+  openCancelModal(event: Event, booking: Booking): void {
+    event.stopPropagation(); // Prevent the event from propagating
+    this.showCancelModal = true;
+    this.selectedBooking = booking;
+    this.selectedReasons = []; // Reset selected reasons when opening modal
+  }
+
+  // Close the cancel modal and reset data
+  closeCancelModal(): void {
+    this.showCancelModal = false;
+    this.selectedBooking = null;
+    this.selectedReasons = [];
+  }
+
+  // Confirm cancellation and handle cancellation logic
+  confirmCancellation(): void {
+    if (this.selectedBooking) {
+      const selectedPassengerIds = this.selectedBooking.passengers
+        .filter((passenger: Passenger) => passenger.isSelected)
+        .map((passenger: Passenger) => passenger.id);
+
+      console.log('Cancellation confirmed for booking:', this.selectedBooking);
+      console.log('Passengers to cancel:', selectedPassengerIds);
+      console.log('Cancellation reasons:', this.selectedReasons);
+
+      // Call the service method to handle cancellation
+      this.bookingService.cancelBooking(this.selectedBooking, selectedPassengerIds, this.selectedReasons);
+      this.bookingService.moveToCancelled(this.selectedBooking);
+      this.closeCancelModal();
+
+      // Navigate to cancellation summary page or other page
+      this.router.navigate(['/cancellation-summary']);
+    }
+  }
+
+  // Open the booking details page for a selected booking
+  openBookingDetails(booking: Booking): void {
+    alert(`Opening booking details for: ${booking.title}`);
+    console.log('Booking details:', booking);
+  }
+
+  // Navigate to booking page for making new bookings
+  navigateToBooking(): void {
+    alert('Navigating to booking page...');
+  }
+
+  // Toggle the reason for cancellation (add/remove from selectedReasons array)
+  toggleReason(reason: string): void {
+    const index = this.selectedReasons.indexOf(reason);
+    if (index === -1) {
+      // Reason not selected, add it
+      this.selectedReasons.push(reason);
+    } else {
+      // Reason already selected, remove it
+      this.selectedReasons.splice(index, 1);
+    }
+  }
+}
