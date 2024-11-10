@@ -1,0 +1,14 @@
+{
+  "routes": [
+    "/about",
+    "/app-payment",
+    "/booking-history",
+    "/bus",
+    "/contact",
+    "/flights",
+    "/hotels",
+    "/login",
+    "/notifications",
+    "/train"
+  ]
+}
